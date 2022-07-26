@@ -2,11 +2,11 @@
 
 ![logo](_media/cover.jpeg)
 
-> 该停止幻想啦
+> 吃饭,好好生活
 
-# 下狗
+# 下狗好好
 
-> 好好吃饭,好好生活
+> 往事暗沉不可追 来日之路光明灿烂
 
 [GitHub](https://github.com/docsifyjs/docsify/)
 [Get Started](README)
