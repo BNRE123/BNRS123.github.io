@@ -8,5 +8,5 @@
 
 > 往事暗沉不可追,来日之路光明灿烂
 
-[GitHub](https://github.com/docsifyjs/docsify/)
+[GitHub](https://github.com/BNRE123/BNRS123.github.io.git)
 [Get Started](README)
