@@ -103,8 +103,6 @@ public class Demo03 {
 * 示例代码(删除指定目录下的文件和父子文件夹)
 
 ```java
-
-
 //删除多级文件夹
 
 public class Demo07 {
@@ -256,8 +254,6 @@ public class Demo06 {
         }
     }
 }
-
-
 ```
 
 ## 1.7File类练习(统计一个文件夹中每种文件的个数并打印)
