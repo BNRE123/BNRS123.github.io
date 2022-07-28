@@ -22,4 +22,4 @@
 
     * [9.IO流](01/IO流/)
 
-        * [part01](01/IO流/part01IO流01/part01IO流.md)
+        * [part01IO流01](01/IO流/part01IO流01/part01IO流.md)
