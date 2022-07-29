@@ -1,6 +1,6 @@
-# 🎏IO流的分类及使用
+### 🎏IO流的分类及使用
 
-## 🎈part01
+#### 🎈part01
 
 * File类
     File file=new File()
@@ -13,7 +13,7 @@
     BufferedInputStream
     BufferedOutputStream
 
-## 🎈part02
+#### 🎈part02
 
 * 字符流
     FileReader
