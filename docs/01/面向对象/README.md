@@ -14,5 +14,5 @@
         * this,super,final
         
     * 接口和内部类
-        * 多态
+        * 多态(OOP原则4)
         * Lambda表达式
