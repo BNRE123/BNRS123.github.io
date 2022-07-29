@@ -617,7 +617,222 @@ public class Demo02 {
         ois.close();
     }
 }
+```
 
+# 4.Properties集合
+
+## 4.1Properties作为Map集合的使用
+- Properties介绍
+
+  - 是一个Map体系的集合类
+  - Properties可以保存到流中或从流中加载
+  - 属性列表中的每个键及其对应的值都是一个字符串
+  - Map集合有的方法他都可以使用
+
+- Properties基本使用
+```java
+public class Demo01 {
+    public static void main(String[] args) {
+        //Properties不用指定集合键值对类型,但是一般用来储存字符串
+        Properties prop = new Properties();
+
+        //增 put
+        prop.put("张三","zhangsan");
+        prop.put("李四","lisi");
+        prop.put("王五","zhangsan");
+        prop.put("赵六","zhangsan");
+
+        //删 remove根据key来删除指定集合元素
+        prop.remove("张三");
+
+        //改 通过put方法指定键后修改值
+        prop.put("李四","zhangsan");
+
+        //查
+        //根据键来查
+        Object value = prop.get("李四");
+        System.out.println(value);
+
+        //遍历集合
+        Set<Object> keys = prop.keySet();
+        for (Object key : keys) {
+            Object value1 = prop.get(key);
+            System.out.println(key+"="+value1);
+        }
+
+        //将map集合转换成set集合
+        Set<Map.Entry<Object, Object>> entries = prop.entrySet();
+        for (Map.Entry<Object, Object> entry : entries) {
+            Object key = entry.getKey();
+            Object value2 = entry.getValue();
+            System.out.println(key+"="+value2);
+        }
+    }
+}
 
 ```
 
+# 4.2Properties作为Map集合特有的方法
+
+* 特有方法
+
+| 方法名                                         | 说明                                                         |
+| ---------------------------------------------- | ------------------------------------------------------------ |
+| Object   setProperty(String key, String value) | 设置集合的键和值，都是String类型，底层调用   Hashtable方法 put |
+| String   getProperty(String key)               | 使用此属性列表中指定的键搜索属性                             |
+| Set<String>   stringPropertyNames()            | 从该属性列表中返回一个不可修改的键集，其中键及其对应的值是字符串 |
+
+* 示例代码
+```java
+public class Demo02 {
+    public static void main(String[] args) {
+        //object setproperty (string key, string value) --- put
+            //设置集合的键和值，都是string类型，底层调用Hashtable方法 put
+        Properties prop = new Properties();
+
+        prop.setProperty("zhangsan","张三");
+        prop.setProperty("zhang","张三");
+        prop.setProperty("lisi","张三");
+
+        System.out.println(prop);
+
+        //String getProperty (String key)--- get
+            //使用此属性列表中指定的键搜索属性
+        String property = prop.getProperty("lisi");
+        System.out.println(property);
+
+        //set<string> stringPropertyNames()  --- keys
+            //从该属性列表中返回一个不可修改的键集，其中键及其对应的值是字符串
+        Set<String> set = prop.stringPropertyNames();
+        for (String key : set) {
+            System.out.println(key+"="+prop.getProperty(key));
+        }
+    }
+}
+
+```
+
+## 4.3Properties和IO流相结合的方法【应用】
+
+- 和IO流结合的方法
+
+  | 方法名                                       | 说明                                                         |
+  | -------------------------------------------- | ------------------------------------------------------------ |
+  | void   load(Reader reader)                   | 从输入字符流读取属性列表（键和元素对）                       |
+  | void   store(Writer writer, String comments) | 将此属性列表（键和元素对）写入此   Properties表中，以适合使用   load(Reader)方法的格式写入输出字符流 |
+
+- 示例代码
+```java
+public class Demo05 {
+    public static void main(String[] args) throws IOException {
+        //把集合中的数据保存到文件
+        myStore();
+
+        //把文件中的数据加载到集合
+        myLoad();
+
+    }
+
+    private static void myLoad() throws IOException {
+        Properties prop = new Properties();
+
+        //void load(Reader reader)：
+        FileReader fr = new FileReader("prop.properties");
+        prop.load(fr);
+        fr.close();
+
+        System.out.println(prop);
+    }
+
+    private static void myStore() throws IOException {
+        Properties prop = new Properties();
+
+        prop.setProperty("itheima001","佟丽娅");
+        prop.setProperty("itheima002","赵丽颖");
+        prop.setProperty("itheima003","刘诗诗");
+
+        //void store(Writer writer, String comments)：
+        FileWriter fw = new FileWriter("prop.properties");
+        prop.store(fw,null);
+        fw.close();
+    }
+}
+```
+
+## 4.4Properties集合练习【应用】
+
+- 案例需求
+
+  在Properties文件中手动写上姓名和年龄,读取到集合中,将该数据封装成学生对象,写到本地文件
+
+- 实现步骤
+
+  - 创建Properties集合,将本地文件中的数据加载到集合中
+  - 获取集合中的键值对数据,封装到学生对象中
+  - 创建序列化流对象,将学生对象序列化到本地文件中
+
+- 代码实现
+
+  学生类
+```java
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+```
+
+测试类
+```java
+public class Test {
+
+    public static void main(String[] args) throws IOException {
+      	//1.创建Properties集合,将本地文件中的数据加载到集合中
+        Properties prop = new Properties();
+        FileReader fr = new FileReader("prop.properties");
+        prop.load(fr);
+        fr.close();
+		//2.获取集合中的键值对数据,封装到学生对象中
+        String name = prop.getProperty("name");
+        int age = Integer.parseInt(prop.getProperty("age"));
+        Student s = new Student(name,age);
+		//3.创建序列化流对象,将学生对象序列化到本地文件中
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("a.txt"));
+        oos.writeObject(s);
+        oos.close();
+    }
+}
+```
