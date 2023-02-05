@@ -32,7 +32,7 @@ public class Main {
 
 ```
 
-JDK1.7新写法
+JDK1.8新写法
 
 ```java
 public class Main {
@@ -187,7 +187,7 @@ public interface Inter {
 
 不使用@Param注解时，参数只能有一个，并且是Javabean。在SQL语句里可以引用JavaBean的属性，而且只能引用JavaBean的属性。
 
-### 4.MyBatis通配符 (#{ }和#{ })
+### 4.MyBatis通配符 (#{ }和${ })
 
 #{}写法：
 
