@@ -372,8 +372,6 @@ DDL主要是用在定义或改变表（TABLE）的结构，数据类型，表之
         -- 缺点是只能提供上一页、下一页的链接形式，
     ```
 
-    
-
   * 第二种优化方式，利用子查询，使用limit查询主键，然后再用连表查询自连
 
   ```sql
@@ -381,7 +379,7 @@ DDL主要是用在定义或改变表（TABLE）的结构，数据类型，表之
    SELECT e.* FROM emp e,(select id from emp  LIMIT 10000,20 ) b where e.id=b.id;
   explain SELECT e.* FROM emp e,(select id from emp  LIMIT 10000000,20 ) b where e.id=b.id;
   ```
-
+  
 * union：将两个查询结果合并
 
   * 两个查询结果的列的数量，必须是一致的
@@ -406,7 +404,25 @@ DDL主要是用在定义或改变表（TABLE）的结构，数据类型，表之
 
     可以将连个表使用union联合然后成为一个新表,然后使用group  by进行分组然后再嵌套子查询
 
+* distinct
+
 * truncate table name：截断表,同时能解决id自增没有删除的问题
+
+## 三大范式
+
+1. **第一范式：**
+
+   1NF是对属性的**原子性**，要求属性具有原子性，不可再分解；
+
+2. **第二范式：**
+
+   2NF是对记录的**唯一性**，要求记录有唯一标识，即实体的唯一性，即不存在部分依赖；
+
+3. **第三范式：**
+
+   3NF是对字段的**冗余性**，要求任何字段不能由其他字段派生出来，它要求字段没有冗余，即不存在传递依赖。
+
+   [参考](https://www.cnblogs.com/Haier123/p/15564325.html)
 
 # MySql事务
 
@@ -622,6 +638,39 @@ MDL不需要显式使用，**在访问一个表的时候会被自动加上**。M
 
   2，(推荐)另一种策略是，发起死锁检测，发现死锁后，主动回滚死锁链条中的某一个事务，让其他事务得以继续执行。将参数 innodb_deadlock_detect 设置为 on，表示开启这个逻辑。
 
+### 如何检查死锁
+
+- 查看死锁
+
+  ```mysql
+      1、查看正在进行中的事务
+  SELECT * FROM information_schema.INNODB_TRX
+      2、查看正在锁的事务
+  SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS;
+      3、查看等待锁的事务
+  SELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;
+      4、查询是否锁表
+  SHOW OPEN TABLES where In_use > 0;
+  在发生死锁时，这几种方式都可以查询到和当前死锁相关的信息。
+      5、查看最近死锁的日志
+  show engine innodb status
+  ```
+
+- 解决死锁
+
+  ```mysql
+  -- 查看当前正在进行中的进程
+  show processlist
+  -- 或者
+   SELECT * FROM information_schema.INNODB_TRX;
+  -- 杀掉进程对应的进程id
+  kill id
+  -- 验证(kill后在看是否还有锁)
+  SHOW OPEN TABLES where In_use > 0;
+  ```
+
+  [参考](https://blog.csdn.net/wufagang/article/details/125554792)
+
 ## 小结
 
 1. 表级锁(table-level locking)：开销小，加锁快;不会出现死锁;锁定粒度大，发生锁冲突的概率最高,并发度最低。
@@ -796,3 +845,20 @@ B树和B+树的共同优点
 
   冒泡,堆,快速,二分查找法
 
+# 时间函数
+
+# SQL字段使用
+
+### order by
+
+### as
+
+### group by
+
+### join
+
+#### left join
+
+### right join
+
+### distinct
