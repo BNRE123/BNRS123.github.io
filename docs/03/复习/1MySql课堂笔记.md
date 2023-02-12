@@ -862,3 +862,9 @@ B树和B+树的共同优点
 ### right join
 
 ### distinct
+
+# SQL语句执行顺序
+
+[参考](https://blog.csdn.net/dz77dz/article/details/115111559)
+
+[参考2](https://www.xinzhiweike.com/wenda/1669391857690947)
