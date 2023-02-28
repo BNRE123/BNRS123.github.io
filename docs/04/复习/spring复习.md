@@ -164,7 +164,7 @@ SpringBean的生命周期是从Bean实例化之后，即通过反射创建出对
    - 调用InitializingBean的afterPropertiesSet()方法：如果Bean实现了InitializingBean接口，spring将调用他们的afterPropertiesSet()方法，类似的，如果Bean使用init-method生命了初始化方法的话，这个方法也会被调用。
    - 初始化成功之后,会查看是否调用BeanPostProcessor的初始化后的方法：如果Bean实现了BeanPostProcessor接口，spring就将调用他们的postprocessAfterInitialization()方法。可以对bean进行扩展
 3. bean的正常使用：可以被应用程序正常使用了,他们将驻留在上下文中,直到应用的上下文被销毁
-4. bean的销毁：调用DisposableBean的destory()方法：如果Bean实现DisposableBean接口，spring将嗲用他的destory()就扣方法，相同的，如果Bean使用了destory-method生命销毁方法，该方法也会被调用。(但由于bean也分为单例和多例,单例bean会随着IOC容器的销毁而销毁,多例的bean不会随着IOC容器的销毁而销毁,他是通过JVM里面的垃圾回收器负责回收)
+4. bean的销毁：调用DisposableBean的destory()方法：如果Bean实现DisposableBean接口，spring将用他的destory()方法，相同的，如果Bean使用了destory-method生命销毁方法，该方法也会被调用。(但由于bean也分为单例和多例,单例bean会随着IOC容器的销毁而销毁,多例的bean不会随着IOC容器的销毁而销毁,他是通过JVM里面的垃圾回收器负责回收)
 
 ### 初始化阶段
 
