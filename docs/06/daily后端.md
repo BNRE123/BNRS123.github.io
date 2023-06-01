@@ -520,12 +520,4 @@ public class AccountServiceTest {
 
 1. 观察者模式
 
-## 6.推荐项目
 
-### 1.黑马医疗系统
-
-微信支付接口的实现
-
-2.Redis
-
-黑马点评(1-95集,初学者)
