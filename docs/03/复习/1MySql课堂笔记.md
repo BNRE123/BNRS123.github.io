@@ -862,7 +862,7 @@ B树和B+树的共同优点
 
 #### left join
 
-### right join
+#### right join
 
 ### distinct
 
